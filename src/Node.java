@@ -22,27 +22,46 @@ public class Node {
 		return lastNode;
 	}
 
-	public Node backwardForward() {
-		Node lastNode = this;
-		if (lastNode.prev == null) {
-			return lastNode;
+	public Node backwardTravverse() {
+		Node currNode = this;
+		if (currNode.prev == null) {
+			return currNode;
 		}
-		return lastNode.prev.backwardForward();
+		return currNode.prev.backwardTravverse();
+	}
+
+	public int size() {
+		int index = 0;
+		try {
+			index = 1 + this.next.size();
+		} catch (NullPointerException n) {
+			index = 0;
+		}
+
+		return index;
 	}
 
 	public void add(int data) {
 		Node lastNode = this.forwardTravverse();
-		Node newNode = new Node(data, this,null);
+		Node newNode = new Node(data, lastNode, null);
 		lastNode.setNext(newNode);
-		
+
+	}
+	
+	public void addBackward(int data) {
+		Node lastNode = this.backwardTravverse();
+		Node newNode = new Node(data, null, lastNode);
+		lastNode.setPrev(newNode);
 
 	}
 
 	public static void main(String[] args) {
-		Node doublyLinkedList = new Node(11,null,null);
+		Node doublyLinkedList = new Node();
+		System.out.println(doublyLinkedList.size());
 		doublyLinkedList.add(15);
-		doublyLinkedList.add(10);
+		//doublyLinkedList.addBackward(10);
 		System.out.println(doublyLinkedList);
+		System.out.println(doublyLinkedList.size());
 	}
 
 	@Override
@@ -51,7 +70,15 @@ public class Node {
 		if (this.next != null) {
 			nextString = this.next.toString();
 		}
-		return data + (nextString.equals("") ? "" : " , " + nextString);
+
+		String prev = (this.prev != null) ? String.valueOf(this.prev.data)
+				: "null";
+		String next = (this.next != null) ? String.valueOf(this.next.data)
+				: "null";
+
+		String currentNode = "[Prev: " + prev + ", Data: " + data + ", Next: "
+				+ next + "]";
+		return currentNode + (nextString.equals("") ? "" : " , " + nextString);
 	}
 
 	public int getData() {
