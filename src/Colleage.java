@@ -1,6 +1,3 @@
-
-
-
 public class Colleage {
 
 	String colleageName;
@@ -50,6 +47,15 @@ public class Colleage {
 		return colleage;
 	}
 
+	public Colleage insertByIndex(int index, String name) {
+		Colleage colleage = this;
+		Colleage traverseColleage = this.traverse(index+1);
+		Colleage newColleage = new Colleage(name);
+		newColleage.setNextCollegeInfo(traverseColleage.getNextCollegeInfo());
+		traverseColleage.setNextCollegeInfo(newColleage);
+		return colleage;
+	}
+
 	public Colleage contains(String name) {
 		Colleage searchColleage = this;
 		if (this.colleageName != name) {
@@ -95,11 +101,11 @@ public class Colleage {
 
 	public static void main(String[] args) {
 		Colleage colleage = new Colleage();
-		// System.out.println(colleage.size());
+		System.out.println(colleage.size());
 		colleage.addCollegeInfo(null);
 		colleage.addCollegeInfo(null);
 		colleage.addCollegeInfo(null);
-		// System.out.println(colleage.size());
+		System.out.println(colleage.size());
 		colleage.addCollegeInfo("SHASHWAT");
 		colleage.addCollegeInfo("VIVEK");
 		colleage.addCollegeInfo("VIVEK2");
@@ -127,21 +133,28 @@ public class Colleage {
 		colleage2.addCollegeInfo("VIVEK4");
 		colleage2.addCollegeInfo("VIVEK5");
 		boolean equals = colleage2.isequals(colleage);
-		System.out.println(equals);
+		System.out.println(colleage2.insertByIndex(0, "kshdfjh"));
+	}
+
+//	@Override
+//	public String toString() {
+//		String stringName = "";
+//		if (this.nextCollegeInfo != null) {
+//			stringName = this.nextCollegeInfo.toString();
+//		}
+//		return this.colleageName
+//				+ ((!stringName.equals("")) ? ("," + stringName) : stringName);
+//	}
+	
+
+	private String getColleageName() {
+		return colleageName;
 	}
 
 	@Override
 	public String toString() {
-		String stringName = "";
-		if (this.nextCollegeInfo != null) {
-			stringName = this.nextCollegeInfo.toString();
-		}
-		return this.colleageName
-				+ ((!stringName.equals("")) ? ("," + stringName) : stringName);
-	}
-
-	private String getColleageName() {
-		return colleageName;
+		return "Colleage [colleageName=" + colleageName + ", nextCollegeInfo="
+				+ nextCollegeInfo + ", name=" + name + "]";
 	}
 
 	private void setColleageName(String colleageName) {
