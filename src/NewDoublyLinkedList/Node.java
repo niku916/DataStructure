@@ -22,12 +22,12 @@ public class Node {
 		this.next = next;
 	}
 
-	public void addAtBeginning(String name) {
+	/*public void addAtBeginning(String name) {
 		Node newNode = new Node(name);
 		Node firstNode = this.findFirstNode();
 		firstNode.next = newNode;
 
-	}
+	}*/
 
 	public Node add(String name) {
 		Node lastNode = this.forwardTraversal();
@@ -52,18 +52,67 @@ public class Node {
 		return lastNode.next.forwardTraversal();
 	}
 
+	public Node deleteByName(String name) {
+		Node currNode = this;
+		Node traverseByNameNode = currNode.traverseByName(name);
+		Node deletedNode = traverseByNameNode.getPrev();
 
-	
-	@Override
-	public String toString() {
-	    String prevStr = (prev == null) ? "null" : "[Name: " + prev.name + "]";
-	    String nextStr = (next == null) ? "null" : next.toString();
-
-	    return "Node [prev=" + prevStr + ", name=" + name + ", next=" + nextStr + "]";
+		return currNode;
 	}
 
+	public Node deleteByIndex(int index) {
+		Node currNode = this;
+		Node deletedNode = null;
+		Node traversedNode = currNode.traverserByIndex(index - 1);
+		deletedNode = traversedNode.getNext();
+		if (deletedNode != null) {
+			deletedNode.setNext(traversedNode.getNext());
+		}
+		return deletedNode;
+	}
 
+	public Node traverserByIndex(int index) {
 
+		Node currNode = this;
+		index--;
+		if (index != 0 && currNode.next != null) {
+			currNode = currNode.next.traverserByIndex(index);
+		}
+
+		return currNode;
+	}
+
+	public Node traverseByName(String name) {
+		Node currNode = this;
+		if (this.name == name) {
+			return currNode;
+		}
+		return currNode.next.traverseByName(name);
+	}
+	
+	public Node addback(String name) {
+		Node lastNode = this.backwardTraversal();
+		Node tempNode = new Node(null, name, lastNode);
+		lastNode.prev = tempNode;
+		return lastNode;
+	}
+	public Node backwardTraversal() {
+		Node lastNode = this;
+		if (lastNode.prev == null) {
+			return lastNode;
+		}
+		return lastNode.prev.backwardTraversal();
+	}
+
+	@Override
+	public String toString() {
+		String prevStr = (prev == null) ? "null" : "[Prevois Name: "
+				+ prev.name + "]";
+		String nextStr = (next == null) ? "null" : next.toString();
+
+		return "Node [prev=" + prevStr + ", name=" + name + ", next=" + nextStr
+				+ "]";
+	}
 
 	public Node getPrev() {
 		return prev;
