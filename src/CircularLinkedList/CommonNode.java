@@ -4,21 +4,54 @@ public class CommonNode {
 
 	String name;
 	CommonNode next;
-	
 
 	public CommonNode add(String name) {
-	    CommonNode lastNode = this.traverse(); 
-	    CommonNode newNode = new CommonNode(name, this);
-	    lastNode.setNext(newNode);
-	    return newNode;
+		CommonNode lastNode = this.traverse();
+		CommonNode newNode = new CommonNode(name, this);
+		lastNode.setNext(newNode);
+		return newNode;
+	}
+
+	public CommonNode insertByIndex(String name, int index) {
+		CommonNode lastNode = this.traverse(index - 1);
+		CommonNode newNode = new CommonNode(name, lastNode.getNext());
+		lastNode.setNext(newNode);
+		return lastNode;
+	}
+
+	public CommonNode deleteByIndex(int index) {
+		CommonNode lastNode = this.traverse(index - 1);
+		lastNode.setNext(lastNode.getNext().getNext());
+		return lastNode;
 	}
 
 	public CommonNode traverse() {
-	    CommonNode lastNode = this;
-	    while (lastNode.next != null && lastNode.next != this) {
-	    	lastNode = lastNode.next;
-	    }
-	    return lastNode;
+		CommonNode lastNode = this;
+		while (lastNode.next != null && lastNode.next != this) {
+			lastNode = lastNode.next;
+		}
+		return lastNode;
+	}
+
+	public CommonNode traverse(int index) {
+		CommonNode lastNode = this;
+
+		while (index != 0 && lastNode.next != null && lastNode.next != lastNode) {
+			index--;
+			lastNode = lastNode.next;
+		}
+		return lastNode;
+	}
+
+	public int size() {
+		CommonNode firstNode = this;
+		int noOfData = 0;
+		while (firstNode.next != null && firstNode.next != firstNode) {
+			noOfData++;
+			firstNode.next = firstNode.next.next;
+		}
+
+		return noOfData;
 	}
 
 	@Override
@@ -41,13 +74,11 @@ public class CommonNode {
 		return sb.toString();
 	}
 
-	
-
 	public CommonNode(String name, CommonNode next) {
 		super();
 		this.name = name;
 		this.next = next;
-		
+
 	}
 
 	public String getName() {
@@ -65,8 +96,5 @@ public class CommonNode {
 	public void setNext(CommonNode next) {
 		this.next = next;
 	}
-
-	
-	
 
 }
