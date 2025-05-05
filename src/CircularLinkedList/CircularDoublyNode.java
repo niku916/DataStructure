@@ -15,6 +15,8 @@ public class CircularDoublyNode {
 		return lastNode;
 	}
 
+	
+	////
 	public CircularDoublyNode traverse() {
 		CircularDoublyNode lastNode = this;
 		while (lastNode.next != null && lastNode.next != this) {
