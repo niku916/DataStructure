@@ -54,6 +54,37 @@ public class CommonNode {
 		return noOfData;
 	}
 
+	public boolean isequals(CommonNode commonNode) {
+		boolean isEquals = false;
+		CommonNode lastNode = this;
+		while (lastNode.name == commonNode.name && this != lastNode.next) {
+			lastNode = lastNode.next;
+			commonNode = commonNode.next;
+			if (lastNode.name == commonNode.name) {
+				isEquals = true;
+			}
+		}
+		if (lastNode.name != commonNode.name) {
+			isEquals = false;
+			return isEquals;
+		}
+		return isEquals;
+	}
+
+	public boolean contains(String name) {
+		boolean isContains = false;
+		CommonNode currNode = this;
+		while (currNode.name != name && this != currNode.next) {
+
+			currNode = currNode.next;
+			currNode.name = currNode.next.name;
+		}
+		if (currNode.name == name) {
+			isContains = true;
+		}
+		return isContains;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
