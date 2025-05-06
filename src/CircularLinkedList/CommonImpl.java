@@ -27,6 +27,8 @@ public class CommonImpl {
 		headnNode1.add("Jayant");
 		System.out.println("headnNode1------" + headnNode1);
 		System.out.println("headnNode-------" + headnNode);
+		boolean equals = headnNode.equals(headnNode1);
+		System.out.println("kdshfjdshfuki..."+equals);
 		System.out.println(headnNode1.isequals(headnNode));
 		System.out.println(headnNode1.contains("Jayant"));
 
