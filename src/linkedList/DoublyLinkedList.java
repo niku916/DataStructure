@@ -36,4 +36,34 @@ public class DoublyLinkedList {
 		return sb.toString();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		DoublyLinkedList other = (DoublyLinkedList) obj;
+		Node currentThis = headNode;
+		DoublyLinkedList currentOther = other;
+		return isequals(currentThis, currentOther);
+	}
+
+	public boolean isequals(Node currentThis, DoublyLinkedList currentOther) {
+		if (currentThis == null && currentOther == null) {
+			return true;
+		}
+		if (currentThis == null || currentOther == null) {
+			return false;
+		}
+		if (currentThis.data != currentOther.headNode.data) {
+			return isequals(currentThis.next, currentOther.headNode.next);
+		}
+		return isequals(currentThis.next, currentOther);
+	}
+
 }

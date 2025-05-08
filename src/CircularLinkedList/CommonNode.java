@@ -54,21 +54,51 @@ public class CommonNode {
 		return noOfData;
 	}
 
-	public boolean isequals(CommonNode commonNode) {
-		boolean isEquals = false;
-		CommonNode lastNode = this;
-		while (lastNode.name == commonNode.name && this != lastNode.next) {
-			lastNode = lastNode.next;
-			commonNode = commonNode.next;
-			if (lastNode.name == commonNode.name) {
-				isEquals = true;
+	@Override
+	public int hashCode() {
+		final int prime = 32;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((next == null) ? 0 : next.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		CommonNode other = (CommonNode) obj;
+		CommonNode currentThis = this;
+		CommonNode currentOther = other;
+		return isequals(currentThis, currentOther);
+	}
+
+	public boolean isequals(CommonNode currentThis, CommonNode currentOther) {
+		if (currentThis == null && currentOther == null) {
+			return true;
+		}
+		if (currentThis == null || currentOther == null) {
+			return false;
+		}
+		if (currentThis.name != currentOther.name) {
+			return false;
+		}
+		if (this != currentOther.next) {
+			currentOther = currentOther.next;
+			currentThis = currentThis.next;
+			if (currentThis.name == currentOther.name) {
+				return isequals(currentThis.next, currentOther.next);
 			}
 		}
-		if (lastNode.name != commonNode.name) {
-			isEquals = false;
-			return isEquals;
-		}
-		return isEquals;
+
+		return isequals(currentThis.next, currentOther.next);
 	}
 
 	public boolean contains(String name) {

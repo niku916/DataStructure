@@ -28,9 +28,10 @@ public class CommonImpl {
 		System.out.println("headnNode1------" + headnNode1);
 		System.out.println("headnNode-------" + headnNode);
 		boolean equals = headnNode.equals(headnNode1);
-		System.out.println("kdshfjdshfuki..."+equals);
-		System.out.println(headnNode1.isequals(headnNode));
-		System.out.println(headnNode1.contains("Jayant"));
+		System.out.println("kdshfjdshfuki..." + equals);
+		//System.out.println(headnNode1.isequals(headnNode, headnNode1));
+		System.out.println(headnNode1.equals(headnNode));
+		//System.out.println(headnNode1.contains("Jayant"));
 
 		// CircularDoublyNode circularDoublyNode = new CircularDoublyNode(null,
 		// "Nishant", null);
